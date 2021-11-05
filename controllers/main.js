@@ -4,6 +4,8 @@
 // send back to front-end
 
 // Set up authentication so only the request with JWT can access the dashboard
+const jwt = require('jsonwebtoken');
+
 const CustomAPIError = require('../errors/custom-error');
 
 
@@ -16,7 +18,14 @@ const login = async (req, res) => {
 		throw new CustomAPIError('Please provide email and password', 400);
 	}
 	
-	res.send('Fake Login/Register/Singup Route');
+	// Mock user id (no database)
+	const id = new Date().getDate();
+	
+	// Try to keep payload small
+	// In Production use a real secret
+	const token = jwt.sign({ id, username }, process.env.JWT_SECRET, { expiresIn: '30d' });
+	
+res.send({ msg: 'user created', token });
 };
 
 
