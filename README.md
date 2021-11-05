@@ -1,4 +1,4 @@
-# JWT Basic Studyapp - Freecodecamp.org
+# JWT Basics Studyapp - Freecodecamp.org
 
 
 Estudo de backend Node-JS com o projeto **Freecodecamp**, para criar uma aplicação de estudo para treinar o padrão de autenticação JSON Web Token (JWT), uma importante parte dentro do desenvolvimento de aplicações web quanto ao quesito de segurança.[^1]
