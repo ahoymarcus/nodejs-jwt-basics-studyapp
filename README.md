@@ -94,27 +94,11 @@ Dependências:
 
 
 
-
-
 <br />
 
-### Finalmente, permitindo a passagem de operadores de comparação para realizar queries com os campos numéricos da API de produtos:                
-![Imagem da passagem de operadores de comparação para realizar queries com os campos numéricos da API de produtos](/public/images/)
 
 
 
-
-
-
-<br />
-
-### Finalmente, permitindo a passagem de operadores de comparação para realizar queries com os campos numéricos da API de produtos:                
-![Imagem da passagem de operadores de comparação para realizar queries com os campos numéricos da API de produtos](/public/images/)
-
-
-
-
-<br />
 
 
 
