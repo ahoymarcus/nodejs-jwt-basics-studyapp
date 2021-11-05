@@ -25,7 +25,7 @@ const login = async (req, res) => {
 	// In Production use a real secret
 	const token = jwt.sign({ id, username }, process.env.JWT_SECRET, { expiresIn: '30d' });
 	
-res.send({ msg: 'user created', token });
+	res.send({ msg: 'user created', token });
 };
 
 
