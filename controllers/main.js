@@ -35,12 +35,20 @@ const dashboard = async (req, res) => {
 	const authHeader = req.headers.authorization;
 	
 	// 401 - Authentication error
-	if (!authHeader || !authHeader.starWith('Bearer ')) {
+	if (!authHeader || !authHeader.startsWith('Bearer ')) {
 		throw new CustomAPIError('No valid token provided', 401);
 	}
 	
 	const token = authHeader.split(' ')[1];
-	console.log('token.....', token);
+	
+	
+	try {
+		const decoded = jwt.verify(token, process.env.JWT_SECRET);
+		
+		console.log('decoded.....', decoded);
+	} catch (error) {
+		throw new CustomAPIError('Not authorized to access this route', 401);
+	}
 	
 	const luckyNumber = Math.floor(Math.random() * 100);
 	
