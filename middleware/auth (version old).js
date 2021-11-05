@@ -1,7 +1,7 @@
 // Set up authentication so only the request with JWT can access the dashboard
 const jwt = require('jsonwebtoken');
 
-const { UnauthenticatedError } = require('../errors');
+const CustomAPIError = require('../errors/custom-error');
 
 
 
@@ -13,7 +13,7 @@ const authenticationMiddleware = async (req, res, next) => {
 	
 	// 401 - Authentication error
 	if (!authHeader || !authHeader.startsWith('Bearer ')) {
-		throw new UnauthenticatedError('No valid token provided');
+		throw new CustomAPIError('No valid token provided', 401);
 	}
 	
 	
@@ -30,7 +30,7 @@ const authenticationMiddleware = async (req, res, next) => {
 		
 		next();
 	} catch (error) {
-		throw new UnauthenticatedError('Not authorized to access this route');
+		throw new CustomAPIError('Not authorized to access this route', 401);
 	}
 };
 
