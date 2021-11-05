@@ -30,6 +30,18 @@ res.send({ msg: 'user created', token });
 
 
 const dashboard = async (req, res) => {
+	console.log('req.headers = ', req.headers);
+	
+	const authHeader = req.headers.authorization;
+	
+	// 401 - Authentication error
+	if (!authHeader || !authHeader.starWith('Bearer ')) {
+		throw new CustomAPIError('No valid token provided', 401);
+	}
+	
+	const token = authHeader.split(' ')[1];
+	console.log('token.....', token);
+	
 	const luckyNumber = Math.floor(Math.random() * 100);
 	
 	res.status(200).json({ msg: 'Hello, John Doe', secret: `Here is your authorized data, your lucky number is ${luckyNumber}`});
