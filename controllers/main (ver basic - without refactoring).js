@@ -30,25 +30,44 @@ res.send({ msg: 'user created', token });
 
 
 
-// Atentention: the property 'user' from req Object
-// comes from the auth middleware!!!
 const dashboard = async (req, res) => {
-	console.log('req.user = ', req.user);
+	console.log('req.headers = ', req.headers);
 	
-	const luckyNumber = Math.floor(Math.random() * 100);
+	const authHeader = req.headers.authorization;
+	
+	// 401 - Authentication error
+	if (!authHeader || !authHeader.startsWith('Bearer ')) {
+		throw new CustomAPIError('No valid token provided', 401);
+	}
+	
+	const token = authHeader.split(' ')[1];
+	
+	
+	try {
+		const decoded = jwt.verify(token, process.env.JWT_SECRET);
+		
+		console.log('decoded.....', decoded);
+		
+		const luckyNumber = Math.floor(Math.random() * 100);
 	  
-	res.status(200).json({ 
-		msg: `Hello, ${req.user.username}`, 
-		secret: `Here is your authorized data, your lucky number is ${luckyNumber}`});
+		res.status(200).json({ msg: `Hello, ${decoded.username}`, secret: `Here is your authorized data, your lucky number is ${luckyNumber}`});
+	} catch (error) {
+		throw new CustomAPIError('Not authorized to access this route', 401);
+	}
 };
-
-
 
 
 module.exports = {
 	login,
 	dashboard
 }
+
+
+
+
+
+
+
 
 
 
